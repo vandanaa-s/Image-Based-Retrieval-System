@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Results</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400&display=swap" rel="stylesheet">
+</head>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function(){
+    $('.view-images-button').click(function(){
+        $('.reference-image').hide(); // Hide reference image
+        $('.image-container').show(); // Show actual images
+    });
+});
+</script>
+
+<body class="background-part">
+    <div class="result-page background">
+        <h1>Search Results</h1>
+        <button class="view-images-button" onclick="toggleImages()">View Images</button>
+        <div class="scroll-container" id="imageContainer" style="display: none;">
+            <div class="image-container">
+                {% for match in matches %}
+                <div class="image-item">
+                    <img src="data:image/png;base64,{{ match }}" alt="Match">
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleImages() {
+            var container = document.getElementById('imageContainer');
+            var button = document.querySelector('.view-images-button');
+            if (container.style.display === 'none') {
+                container.style.display = 'block';
+                button.style.display = 'none'; // Hide the button
+            } else {
+                container.style.display = 'none';
+            }
+        }
+
+    </script>
+</body>
+</html>
